@@ -2,6 +2,7 @@
 	let string = "friends";
 	let greeting = "Bienvenido";
 	let name = "";
+	let color = "orange"
 
 	const handleClick = () => {
 		greeting = "Welcome"
@@ -13,10 +14,13 @@
 </script>
 
 <main>
-	<h1>Hello {string}!</h1>
+	<h1 style="color: {color}">Hello {string}!</h1>
 	<p>{greeting} {name}</p>
 	<button on:click={handleClick}>Translate</button>
+	<p>Enter your name: </p>
 	<input type="text" on:input={handleInput}>
+	<p>Enter a colour: </p>
+	<input type="text" bind:value={color}>
 </main>
 
 <style>
