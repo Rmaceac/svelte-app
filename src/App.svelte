@@ -1,4 +1,6 @@
 <script>
+	import Modal from './components/Modal.svelte';
+
 	let string = "friends";
 	let greeting = "Bienvenido";
 	let firstName = "";
@@ -7,31 +9,45 @@
 
 	$: fullName = `${firstName} ${lastName}`
 
-
+	let people = [
+		{name: "Brian", job: "cab driver", age: 39, id: 1},
+		{name: "Sherri", job: "barber", age: 27, id: 2},
+		{name: "Dylan", job: "comedian", age: 42, id: 3}
+	]
 
 	const handleClick = () => {
 		greeting = "Welcome"
 	};
 
-	const handleFirstInput = (e) => {
-		firstName = e.target.value
-	};
-
-	const handleLastInput = (e) => {
-		lastName = e.target.value
-	};
+	const handleDelete = (id) => {
+		people = people.filter(person => person.id != id)
+	}
 </script>
 
+<Modal />
 <main>
 	<h1 style="color: {color}">Hello {string}!</h1>
 	<p>{greeting} {fullName}</p>
 	<button on:click={handleClick}>Translate</button>
 	<p>Enter your first name: </p>
-	<input type="text" on:input={handleFirstInput}>
+	<input type="text" on:input={(e) => firstName = e.target.value}>
 	<p>Enter your last name: </p>
-	<input type="text" on:input={handleLastInput}>
+	<input type="text" on:input={(e) => lastName = e.target.value}>
 	<p>Enter a colour: </p>
-	<input type="text" on:input={(e) => {color = e.target.value}}>
+	<input type="text" on:input={(e) => color = e.target.value}>
+
+	<h3 style="color: {color}">A list of People:</h3>
+	{#if people.length <= 2}
+	<p>a couple of people...</p>
+	{:else if people.length > 2}
+	<p>a few people...</p>
+	{/if}
+	{#each people as person (person.id)}
+		<p>{person.name} is a {person.job}. They are {person.age}.</p>
+		<button on:click={() => handleDelete(person.id)}>delete person</button>
+		{:else}
+		<p>No people data available :/...</p>
+	{/each}
 </main>
 
 <style>
