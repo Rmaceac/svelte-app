@@ -15,17 +15,24 @@
 		{name: "Dylan", job: "comedian", age: 42, id: 3}
 	]
 
+	let showModal = false;
+
 	const handleClick = () => {
 		greeting = "Welcome"
 	};
 
 	const handleDelete = (id) => {
 		people = people.filter(person => person.id != id)
+	};
+
+	const toggleModal = () => {
+		showModal = !showModal;
 	}
 </script>
 
-<Modal />
+<Modal message="This is a message." isPromo={true} {showModal} on:click={toggleModal}/>
 <main>
+	<button on:click={toggleModal}>Show Modal</button>
 	<h1 style="color: {color}">Hello {string}!</h1>
 	<p>{greeting} {fullName}</p>
 	<button on:click={handleClick}>Translate</button>
