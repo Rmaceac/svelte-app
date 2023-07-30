@@ -1,26 +1,37 @@
 <script>
 	let string = "friends";
 	let greeting = "Bienvenido";
-	let name = "";
-	let color = "orange"
+	let firstName = "";
+	let lastName = "";
+	let color = "orange";
+
+	$: fullName = `${firstName} ${lastName}`
+
+
 
 	const handleClick = () => {
 		greeting = "Welcome"
 	};
 
-	const handleInput = (e) => {
-		name = e.target.value
+	const handleFirstInput = (e) => {
+		firstName = e.target.value
+	};
+
+	const handleLastInput = (e) => {
+		lastName = e.target.value
 	};
 </script>
 
 <main>
 	<h1 style="color: {color}">Hello {string}!</h1>
-	<p>{greeting} {name}</p>
+	<p>{greeting} {fullName}</p>
 	<button on:click={handleClick}>Translate</button>
-	<p>Enter your name: </p>
-	<input type="text" on:input={handleInput}>
+	<p>Enter your first name: </p>
+	<input type="text" on:input={handleFirstInput}>
+	<p>Enter your last name: </p>
+	<input type="text" on:input={handleLastInput}>
 	<p>Enter a colour: </p>
-	<input type="text" bind:value={color}>
+	<input type="text" on:input={(e) => {color = e.target.value}}>
 </main>
 
 <style>
