@@ -36,6 +36,7 @@
 			person,
 			...people
 		]
+		showModal = false;
 	};
 </script>
 
