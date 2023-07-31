@@ -11,9 +11,9 @@
 	$: fullName = `${firstName} ${lastName}`
 
 	let people = [
-		{name: "Brian", job: "cab driver", age: 39, id: 1},
-		{name: "Sherri", job: "barber", age: 27, id: 2},
-		{name: "Dylan", job: "comedian", age: 42, id: 3}
+		{name: "Brian", job: "cab driver", age: 39, skills: ["chopping"], id: 1},
+		{name: "Sherri", job: "barber", age: 27, skills: ["running", "throwing"], id: 2},
+		{name: "Dylan", job: "comedian", age: 42, skills: ["swimming"], id: 3}
 	]
 
 	let showModal = false;
@@ -28,12 +28,20 @@
 
 	const toggleModal = () => {
 		showModal = !showModal;
-	}
+	};
+
+	const addPerson = (e) => {
+		const person = e.detail
+		people = [
+			person,
+			...people
+		]
+	};
 </script>
 
 <Modal isPromo={true} {showModal} on:click={toggleModal}>
 	<h3 slot="title">Add a new person</h3>
-	<AddPersonForm />
+	<AddPersonForm on:addPerson={addPerson}/>
 </Modal>
 <main>
 	<button on:click|once={toggleModal}>Show Modal</button>
@@ -55,6 +63,10 @@
 	{/if}
 	{#each people as person (person.id)}
 		<p>{person.name} is a {person.job}. They are {person.age}.</p>
+		<p>Skills:</p>
+		{#each person.skills as skill, i}
+      <p>{skill}</p>
+    {/each}
 		<button on:click={() => handleDelete(person.id)}>delete person</button>
 		{:else}
 		<p>No people data available :/...</p>
