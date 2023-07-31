@@ -1,5 +1,6 @@
 <script>
 	import Modal from './components/Modal.svelte';
+	import AddPersonForm from './components/AddPersonForm.svelte';
 
 	let string = "friends";
 	let greeting = "Bienvenido";
@@ -30,7 +31,10 @@
 	}
 </script>
 
-<Modal message="This is a message." isPromo={true} {showModal} on:click={toggleModal}/>
+<Modal isPromo={true} {showModal} on:click={toggleModal}>
+	<h3 slot="title">Add a new person</h3>
+	<AddPersonForm />
+</Modal>
 <main>
 	<button on:click|once={toggleModal}>Show Modal</button>
 	<h1 style="color: {color}">Hello {string}!</h1>
